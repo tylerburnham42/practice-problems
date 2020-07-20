@@ -1,0 +1,24 @@
+# Leetcode 7/19
+# Used stacks, This is pretty ideal.
+# https://leetcode.com/problems/valid-parentheses
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+
+        opens = {"(": ")", "{": "}", "[": "]"}
+        closes = [")", "}", "]"]
+
+        for char in s:
+            #print(char, stack)
+            if char in opens.keys():
+                stack.append(opens[char])
+
+            elif char in closes:
+                if len(stack) == 0:
+                    return False
+                if char != stack.pop():
+                    return False
+        
+        if len(stack) != 0:
+            return False
+        return True
