@@ -1,4 +1,4 @@
-# Leetcode 7/19
+# Leetcode 3/22
 # Used stacks, This is pretty ideal.
 # https://leetcode.com/problems/valid-parentheses
 class Solution:
@@ -8,17 +8,22 @@ class Solution:
         opens = {"(": ")", "{": "}", "[": "]"}
         closes = [")", "}", "]"]
 
+        # Loop over each bracket in the string
         for char in s:
-            #print(char, stack)
-            if char in opens.keys():
+
+            # Check if the bracket is a type of open bracket.
+            if char in opens:
+                
+                # Append the closing bracket
                 stack.append(opens[char])
 
+            # If the bracket is a type of closing bracket
             elif char in closes:
-                if len(stack) == 0:
+                
+                # Check if the top of the stack matches the type of bracket
+                if not len(stack) or char != stack.pop():
                     return False
-                if char != stack.pop():
-                    return False
-        
-        if len(stack) != 0:
-            return False
-        return True
+
+
+        # Check if the list is empty at the end.
+        return len(stack) == 0
