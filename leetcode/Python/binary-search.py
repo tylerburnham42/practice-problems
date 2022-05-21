@@ -20,3 +20,29 @@ class Solution:
             
         else:
             return self.recursive_search(nums[middle+1:], target, start_index+middle+1)
+			
+			
+			
+# Non recursive.
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        
+        start = 0
+        end = len(nums)
+        
+        while(start <= end):
+            middle = (end + start - 1) // 2
+
+            if nums[middle] == target:
+                return middle
+            
+            elif start == end:
+                return -1
+            
+            elif nums[middle] > target:
+                end = middle
+
+            else:
+                start = middle + 1
+                
+        return -1
