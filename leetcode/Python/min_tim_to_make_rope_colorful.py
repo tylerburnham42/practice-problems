@@ -45,3 +45,42 @@ class Solution:
             last = i
         print(indent + "End:", colors, self.memo, smallest)
         return smallest
+
+
+# Actually working version
+from queue import PriorityQueue
+
+class Solution:
+    def minCost(self, colors: str, neededTime: List[int]) -> int:
+
+        duplicates = []
+        time = 0
+        for index in range(0, len(colors)):
+            #print(colors[index], duplicates)
+            if len(duplicates) == 0 :
+                duplicates.append(index)
+            
+            elif(colors[index] == colors[duplicates[-1]]):
+                duplicates.append(index)
+                
+            else:
+                if len(duplicates) >= 2:
+                    times = PriorityQueue()
+                    for num in duplicates:
+                        times.put(neededTime[num])
+                    
+                    while(times.qsize() >= 2):
+                        time += times.get()
+                        #print(time)
+                duplicates = [index]
+        
+            #print(colors[index], duplicates, time)
+        if len(duplicates) >= 2:
+            times = PriorityQueue()
+            for num in duplicates:
+                times.put(neededTime[num])
+
+            while(times.qsize() >= 2):
+                time += times.get()
+                #print(time)
+        return time
